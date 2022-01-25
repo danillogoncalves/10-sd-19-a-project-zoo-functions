@@ -1,7 +1,12 @@
-const data = require('../data/zoo_data');
+const { species } = require('../data/zoo_data');
 
-function getSpeciesByIds(ids) {
+function getSpeciesByIds(...ids) {
   // seu código aqui
+  const result = [];
+  ids.forEach((animaleId) => {
+    result.push(species.find((element) => element.id === animaleId));
+  });
+  return result;
 }
-// Para o primeiro commit
+
 module.exports = getSpeciesByIds;
