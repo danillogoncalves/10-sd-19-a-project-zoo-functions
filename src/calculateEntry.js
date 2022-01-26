@@ -22,20 +22,10 @@ function calculateEntry(entrants) {
   if (!entrants || Object.keys(entrants).length === 0) return 0;
   const entries = countEntrants(entrants);
   let pay = 0;
-  pay += entries.child * prices.child;
-  pay += entries.adult * prices.adult;
-  pay += entries.senior * prices.senior;
+  Object.keys(entries).forEach((entry) => {
+    pay += entries[entry] * prices[entry];
+  });
   return pay;
 }
 
-const entrants = [
-  { name: 'Lara Carvalho', age: 5 },
-  { name: 'Frederico Moreira', age: 5 },
-  { name: 'Pedro Henrique Carvalho', age: 5 },
-  { name: 'Maria Costa', age: 18 },
-  { name: 'Núbia Souza', age: 18 },
-  { name: 'Carlos Nogueira', age: 50 },
-];
-
-console.log(calculateEntry(entrants));
 module.exports = { calculateEntry, countEntrants };
