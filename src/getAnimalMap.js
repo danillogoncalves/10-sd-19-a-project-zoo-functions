@@ -27,16 +27,75 @@ const namesAnimalMap = () => {
   return animalMap;
 };
 
+const sortedNamesAnimalMap = () => {
+  const animalMap = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+  species.forEach((element) => {
+    const speciesName = {};
+    const sortedName = element.residents.map((nameAnimal) => nameAnimal.name).sort();
+    speciesName[element.name] = sortedName;
+    animalMap[element.location].push(speciesName);
+  });
+  return animalMap;
+};
+
+const sexNamesAnimalMap = (options) => {
+  const animalMap = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+  species.forEach((element) => {
+    const speciesName = {};
+    const sortedName = element.residents.filter((sexElement) => sexElement.sex === options.sex)
+      .map((nameAnimal) => nameAnimal.name);
+    speciesName[element.name] = sortedName;
+    animalMap[element.location].push(speciesName);
+  });
+  return animalMap;
+};
+
+const sortedSexNamesAnimalMap = (options) => {
+  const animalMap = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+  species.forEach((element) => {
+    const speciesName = {};
+    const sortedName = element.residents.filter((sexElement) => sexElement.sex === options.sex)
+      .map((nameAnimal) => nameAnimal.name).sort();
+    speciesName[element.name] = sortedName;
+    animalMap[element.location].push(speciesName);
+  });
+  return animalMap;
+};
+
+const hubIncludeNames = (options) => {
+  if (options.sorted && options.sex) {
+    return sortedSexNamesAnimalMap(options);
+  }
+  if (options.sex) {
+    return sexNamesAnimalMap(options);
+  }
+  if (options.sorted) {
+    return sortedNamesAnimalMap();
+  }
+  return namesAnimalMap();
+};
+
 function getAnimalMap(options) {
   // seu código aqui
   if (!options || !options.includeNames) {
     return notIncludeNamesAnimalMap();
   }
-  if (options.includeNames) {
-    return namesAnimalMap();
-  }
+  return hubIncludeNames(options);
 }
-
-console.log(getAnimalMap({ includeNames: true }));
 
 module.exports = getAnimalMap;
