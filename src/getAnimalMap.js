@@ -69,8 +69,10 @@ const sortedSexNamesAnimalMap = (options) => {
   };
   species.forEach((element) => {
     const speciesName = {};
-    const sortedName = element.residents.filter((sexElement) => sexElement.sex === options.sex)
-      .map((nameAnimal) => nameAnimal.name).sort();
+    const sortedName = element.residents
+      .filter((sexElement) => sexElement.sex === options.sex)
+      .map((nameAnimal) => nameAnimal.name)
+      .sort();
     speciesName[element.name] = sortedName;
     animalMap[element.location].push(speciesName);
   });

@@ -21,16 +21,30 @@ const weeklySchedule = () => {
   }, {});
 };
 
+const dayOfTheWeek = (scheduleTarget) => {
+  const dailySchedule = weeklySchedule();
+  const result = {};
+  const content = dailySchedule[scheduleTarget];
+  result[scheduleTarget] = content;
+  return result;
+};
+
+const animalSchedule = (scheduleTarget) => species
+  .find((specie) => specie.name === scheduleTarget).availability;
+
 function getSchedule(scheduleTarget) {
   // seu código aqui
   const everyDayOfTheWeek = Object.keys(hours).includes(scheduleTarget);
   const animalNames = species.map((specie) => `${specie.name}`).includes(scheduleTarget);
-  if (!scheduleTarget || !everyDayOfTheWeek || !animalNames) {
-    return weeklySchedule();
+  if (animalNames) {
+    return animalSchedule(scheduleTarget);
   }
+  if (everyDayOfTheWeek) {
+    return dayOfTheWeek(scheduleTarget);
+  }
+  return weeklySchedule();
 }
-const teste = getSchedule();
 
-console.log(Object.entries(teste));
+console.log(getSchedule('Tuesday'));
 
 module.exports = getSchedule;
