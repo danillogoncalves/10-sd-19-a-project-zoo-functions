@@ -45,6 +45,4 @@ function getSchedule(scheduleTarget) {
   return weeklySchedule();
 }
 
-console.log(getSchedule('Tuesday'));
-
 module.exports = getSchedule;
